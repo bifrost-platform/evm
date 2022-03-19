@@ -27,10 +27,6 @@ auto_impl = "0.5.0"
 criterion = "0.3"
 hex = "0.4"
 
-[[bench]]
-name = "loop"
-harness = false
-
 [features]
 default = ["std"]
 with-codec = ["codec", "scale-info", "evm-core/with-codec", "primitive-types/codec", "primitive-types/scale-info", "ethereum/with-codec"]
