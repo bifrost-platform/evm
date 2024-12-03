@@ -1,6 +1,6 @@
 use crate::{ExitError, ExitFatal};
 use alloc::vec::Vec;
-use core::cmp::min;
+use core::cmp::{max, min};
 use core::ops::{BitAnd, Not};
 use primitive_types::U256;
 
@@ -180,6 +180,15 @@ impl Memory {
 		};
 
 		self.set(memory_offset, data, Some(ulen))
+	}
+
+	/// Copies part of the memory inside another part of itself.
+	pub fn copy(&mut self, dst: usize, src: usize, len: usize) {
+		let resize_offset = max(dst, src);
+		if self.data.len() < resize_offset + len {
+			self.data.resize(resize_offset + len, 0);
+		}
+		self.data.copy_within(src..src + len, dst);
 	}
 }
 
